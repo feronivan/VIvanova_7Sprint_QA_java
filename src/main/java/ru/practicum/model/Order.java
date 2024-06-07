@@ -14,16 +14,4 @@ public class Order {
     private String deliveryDate;
     private List<String> color;
     private String comment;
-
-//    public Order(String firstName, String lastName, String address, String metroStation, String phone, int rentTime, String deliveryDate, String comment, List<String> color) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.address = address;
-//        this.metroStation = metroStation;
-//        this.phone = phone;
-//        this.rentTime = rentTime;
-//        this.deliveryDate = deliveryDate;
-//        this.comment = comment;
-//        this.color = color;
-//    }
 }
