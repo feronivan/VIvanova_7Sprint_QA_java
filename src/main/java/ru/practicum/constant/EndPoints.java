@@ -1,3 +1,5 @@
+package ru.practicum.constant;
+
 public class EndPoints {
     public static final String COURIERCREATE = "/api/v1/courier";
     public static final String COURIERLOGIN = "/api/v1/courier/login";

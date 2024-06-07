@@ -1,51 +1,53 @@
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.Response;
+import io.restassured.filter.log.RequestLoggingFilter;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import ru.practicum.model.Order;
 import ru.practicum.steps.OrderSteps;
+import java.util.List;
+import io.restassured.RestAssured;
 
 import static org.hamcrest.Matchers.notNullValue;
-import static ru.practicum.constant.OrderTestData.*;
+
+
 @DisplayName("Тесты на создание заказа с вариантами цвета самоката: POST /api/v1/orders")
 
 @RunWith(Parameterized.class)
-public class OrderCreateTest extends AbstractTest{
-    private String[] color;
+public class OrderCreateColorTest {
+    private OrderSteps orderSteps;
+    private Order order;
+    private List<String> color;
 
-    public СreateOrderWithColor(String[] color) {
-        this.color=color;
+    public OrderCreateColorTest(List<String> color){
+        this.color = color;
     }
 
-    @Parameterized.Parameters(name = "Test {index} Цвет самоката: {0}")
-    public static Object[][]getColor(){
+    @Before
+    public void setUpOrderColorScooter(){
+        RestAssured.filters(new RequestLoggingFilter());
+
+        orderSteps = new OrderSteps();
+        order = new Order();
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] scooterColor() {
         return new Object[][]{
-                {"Черный", new String[]{"BLACK"}},
-                {"Серый", new String[]{"GREY"}},
-                {"Черный, Серый", new String[]{"BLACK","GREY"}},
-                {"Пусто", new String[]{""}}
+                {List.of("BLACK")},
+                {List.of("GREY")},
+                {List.of("BLACK GRAY")},
+                {List.of()},
         };
     }
 
-    public Order order = new Order(FIRST_NAME,
-            LAST_NAME,
-            ADDRESS,
-            METRO_STATION,
-            PHONE,
-            RENT_TIME,
-            DELIVERY_DATE,
-            COMMENT,
-            color);
-}
-
     @Test
-    public void createOrder() {
-    Response response = OrderSteps.createOrder(order);
-
-    response.then()
-            .assertThat()
-            .statusCode(201)
-            .body("track", notNullValue());
+    @DisplayName("Создание заказа с вариантами цвета самоката")
+    public void createOrderWithColorTest() {
+        orderSteps
+                .createOrder(order)
+                .statusCode(201)
+                .body("track", notNullValue());
+    }
 }
-
