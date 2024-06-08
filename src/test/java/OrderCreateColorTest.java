@@ -37,7 +37,7 @@ public class OrderCreateColorTest {
         return new Object[][]{
                 {List.of("BLACK")},
                 {List.of("GREY")},
-                {List.of("BLACK GRAY")},
+                {List.of("BLACK", "GRAY")},
                 {List.of()},
         };
     }

@@ -7,7 +7,7 @@ import io.restassured.response.ValidatableResponse;
 import ru.practicum.model.Order;
 
 import static io.restassured.RestAssured.given;
-import static ru.practicum.config.RestGonfig.HOST;
+import static ru.practicum.config.RestConfig.HOST;
 import static ru.practicum.constant.EndPoints.*;
 
 public class OrderSteps {
