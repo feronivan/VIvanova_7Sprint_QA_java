@@ -12,13 +12,13 @@ import io.restassured.RestAssured;
 import static org.hamcrest.Matchers.notNullValue;
 
 
+
 @DisplayName("Тесты на создание заказа с вариантами цвета самоката: POST /api/v1/orders")
 
 @RunWith(Parameterized.class)
 public class OrderCreateColorTest {
     private OrderSteps orderSteps;
-    private Order order;
-    private List<String> color;
+    private final List<String> color;
 
     public OrderCreateColorTest(List<String> color){
         this.color = color;
@@ -27,9 +27,7 @@ public class OrderCreateColorTest {
     @Before
     public void setUpOrderColorScooter(){
         RestAssured.filters(new RequestLoggingFilter());
-
         orderSteps = new OrderSteps();
-        order = new Order();
     }
 
     @Parameterized.Parameters
@@ -45,6 +43,8 @@ public class OrderCreateColorTest {
     @Test
     @DisplayName("Создание заказа с вариантами цвета самоката")
     public void createOrderWithColorTest() {
+        Order order = new Order();
+        order.setColor(color);
         orderSteps
                 .createOrder(order)
                 .statusCode(201)

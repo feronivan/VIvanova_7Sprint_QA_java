@@ -35,11 +35,11 @@ public class OrderSteps {
     }
 
     @Step("Отмена заказа")
-    public static Response cancelOrder(String trackId) {
+    public static Response cancelOrder(int track) {
         return given()
                 .contentType(ContentType.JSON)
                 .baseUri(HOST)
-                .queryParams("track",trackId)
+                .queryParams("track",track)
                 .when()
                 .put(ORDERCANCEL);
     }
